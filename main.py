@@ -9,23 +9,28 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.width', None)
 
 data_json = json.load(open("data.json", 'r'))
-data = data_json.get('a')
-print(pd.DataFrame(data))
 
-bool_data = functions.prepros(data)
-print(pd.DataFrame(bool_data))
+for variant in data_json.keys():
+    print(f"{variant}: ")
+    data = data_json.get('a')
+    print(pd.DataFrame(data))
 
-df = pd.DataFrame(bool_data)
+    bool_data = functions.prepros(data)
+    print(pd.DataFrame(bool_data))
 
-frequent_itemsets = apriori(df, min_support=0.3)
+    df = pd.DataFrame(bool_data)
 
-rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=0.5)
+    frequent_itemsets = apriori(df, min_support=0.3)
 
-print("Частые наборы элементов:")
-print(frequent_itemsets)
+    rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=0.5)
 
-print("\nПравила ассоциации:")
-print(rules)
+    print("Частые наборы элементов:")
+    print(frequent_itemsets)
+
+    print("\nПравила ассоциации:")
+    print(rules)
+
+    print("=========================================")
 
 
 
